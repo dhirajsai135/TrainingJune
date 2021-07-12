@@ -1,0 +1,63 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="BooksDBModelStoreContainer" CdmEntityContainer="BooksDBEntities">
+    <EntitySetMapping Name="Authors">
+      <EntityTypeMapping TypeName="BooksDBModel.Author">
+        <MappingFragment StoreEntitySet="Author">
+          <ScalarProperty Name="Auth_Id" ColumnName="Auth_Id" />
+          <ScalarProperty Name="Auth_Name" ColumnName="Auth_Name" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Books">
+      <EntityTypeMapping TypeName="BooksDBModel.Book">
+        <MappingFragment StoreEntitySet="Books">
+          <ScalarProperty Name="Book_Id" ColumnName="Book_Id" />
+          <ScalarProperty Name="Auth_Id" ColumnName="Auth_Id" />
+          <ScalarProperty Name="Book_Name" ColumnName="Book_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="E_details">
+      <EntityTypeMapping TypeName="BooksDBModel.E_details">
+        <MappingFragment StoreEntitySet="E_details">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="Age" ColumnName="Age" />
+          <ScalarProperty Name="Gender" ColumnName="Gender" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_author">
+      <EntityTypeMapping TypeName="BooksDBModel.tbl_author">
+        <MappingFragment StoreEntitySet="tbl_author">
+          <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
+          <ScalarProperty Name="AuthorName" ColumnName="AuthorName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="tbl_Books">
+      <EntityTypeMapping TypeName="BooksDBModel.tbl_Books">
+        <MappingFragment StoreEntitySet="tbl_Books">
+          <ScalarProperty Name="BookId" ColumnName="BookId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="GetBooks" FunctionName="BooksDBModel.Store.GetBooks">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="BooksDBModel.GetBooks_Result">
+          <ScalarProperty Name="Book_Id" ColumnName="Book_Id" />
+          <ScalarProperty Name="Auth_Id" ColumnName="Auth_Id" />
+          <ScalarProperty Name="Book_Name" ColumnName="Book_Name" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="InsertBooks" FunctionName="BooksDBModel.Store.InsertBooks" />
+    <FunctionImportMapping FunctionImportName="sp_InsBook" FunctionName="BooksDBModel.Store.sp_InsBook" />
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,91 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<h2>View</h2>
+
+<select id="CountryDDL">
+    <option value="Select"> --Select-- </option>
+</select>
+<br />
+<br />
+<select id="StateDDL">
+    <option value="Select"> --Select-- </option>
+</select>
+<br />
+<br />
+<select id="CityDDL">
+    <option value="Select"> --Select-- </option>
+</select>
+
+
+
+<script>
+
+    $(function () {
+
+        AjaxCall('/Casc/GetCountry', null).done(function (response) {
+            if (response.length > 0) {
+                $('#CountryDDL').html('');
+                var options = '';
+                options += '<option value="Select">--Select--</option>';
+                for (var i = 0; i < response.length; i++) {
+                    options += '<option value="' + response[i] + '">' + response[i] + '</option>';
+                }
+                $('#CountryDDL').append(options);
+
+            }
+        }).fail(function (error) {
+            alert(error.StatusText);
+        });
+
+        $('#CountryDDL').on("change", function () {
+            var country = $('#CountryDDL').val();
+            var obj = { country: country };
+            AjaxCall('/Casc/GetStates', JSON.stringify(obj), 'POST').done(function (response) {
+                if (response.length > 0) {
+                    $('#StateDDL').html('');
+                    var options = '';
+                    options += '<option value="Select">--Select--</option>';
+                    for (var i = 0; i < response.length; i++) {
+                        options += '<option value="' + response[i] + '">' + response[i] + '</option>';
+                    }
+                    $('#StateDDL').append(options);
+
+                }
+            }).fail(function (error) {
+                alert(error.StatusText);
+            });
+        });
+
+        $('#StateDDL').on("change", function () {
+            var country = $('#StateDDL').val();
+            var obj = { state: country };
+            AjaxCall('/Casc/GetCity', JSON.stringify(obj), 'POST').done(function (response) {
+                if (response.length > 0) {
+                    $('#CityDDL').html('');
+                    var options = '';
+                    options += '<option value="Select">--Select--</option>';
+                    for (var i = 0; i < response.length; i++) {
+                        options += '<option value="' + response[i] + '">' + response[i] + '</option>';
+                    }
+                    $('#CityDDL').append(options);
+
+                }
+            }).fail(function (error) {
+                alert(error.StatusText);
+            });
+        });
+
+    });
+
+    function AjaxCall(url, data, type) {
+        return $.ajax({
+            url: url,
+            type: type ? type : 'GET',
+            data: data,
+            contentType: 'application/json'
+        });
+    }
+</script>   

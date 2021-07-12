@@ -1,0 +1,7 @@
+C:\Users\dhira\source\repos\BooksADO\BooksADO\bin\Debug\BooksADO.exe.config
+C:\Users\dhira\source\repos\BooksADO\BooksADO\bin\Debug\BooksADO.exe
+C:\Users\dhira\source\repos\BooksADO\BooksADO\bin\Debug\BooksADO.pdb
+C:\Users\dhira\source\repos\BooksADO\BooksADO\obj\Debug\BooksADO.csproj.AssemblyReference.cache
+C:\Users\dhira\source\repos\BooksADO\BooksADO\obj\Debug\BooksADO.csproj.CoreCompileInputs.cache
+C:\Users\dhira\source\repos\BooksADO\BooksADO\obj\Debug\BooksADO.exe
+C:\Users\dhira\source\repos\BooksADO\BooksADO\obj\Debug\BooksADO.pdb

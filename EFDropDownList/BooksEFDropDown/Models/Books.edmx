@@ -1,0 +1,291 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BooksDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="Auth_Id" />
+          </Key>
+          <Property Name="Auth_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Auth_Name" Type="varchar" MaxLength="40" />
+          <Property Name="Age" Type="int" />
+        </EntityType>
+        <EntityType Name="Books">
+          <Key>
+            <PropertyRef Name="Book_Id" />
+          </Key>
+          <Property Name="Book_Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Auth_Id" Type="int" />
+          <Property Name="Book_Name" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="E_details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="LastName" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Age" Type="int" />
+          <Property Name="Gender" Type="char" MaxLength="10" />
+        </EntityType>
+        <EntityType Name="tbl_author">
+          <Key>
+            <PropertyRef Name="AuthorId" />
+          </Key>
+          <Property Name="AuthorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AuthorName" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="tbl_Books">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="50" />
+          <Property Name="AuthorId" Type="int" />
+          <Property Name="Price" Type="money" />
+        </EntityType>
+        <Association Name="FK__Books__Auth_Id__4BAC3F29">
+          <End Role="Author" Type="Self.Author" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="Auth_Id" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="Auth_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_auth">
+          <End Role="tbl_author" Type="Self.tbl_author" Multiplicity="0..1" />
+          <End Role="tbl_Books" Type="Self.tbl_Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_author">
+              <PropertyRef Name="AuthorId" />
+            </Principal>
+            <Dependent Role="tbl_Books">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="GetBooks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="InsertBooks" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="AuthorId" Type="int" Mode="In" />
+          <Parameter Name="BookName" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_InsBook" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Title" Type="varchar" Mode="In" />
+          <Parameter Name="AuthorId" Type="int" Mode="In" />
+          <Parameter Name="Price" Type="money" Mode="In" />
+        </Function>
+        <EntityContainer Name="BooksDBModelStoreContainer">
+          <EntitySet Name="Author" EntityType="Self.Author" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Books" EntityType="Self.Books" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="E_details" EntityType="Self.E_details" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_author" EntityType="Self.tbl_author" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="tbl_Books" EntityType="Self.tbl_Books" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Books__Auth_Id__4BAC3F29" Association="Self.FK__Books__Auth_Id__4BAC3F29">
+            <End Role="Author" EntitySet="Author" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_auth" Association="Self.FK_auth">
+            <End Role="tbl_author" EntitySet="tbl_author" />
+            <End Role="tbl_Books" EntitySet="tbl_Books" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BooksDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Author">
+          <Key>
+            <PropertyRef Name="Auth_Id" />
+          </Key>
+          <Property Name="Auth_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Auth_Name" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="Age" Type="Int32" />
+          <NavigationProperty Name="Books" Relationship="Self.FK__Books__Auth_Id__4BAC3F29" FromRole="Author" ToRole="Books" />
+        </EntityType>
+        <EntityType Name="Book">
+          <Key>
+            <PropertyRef Name="Book_Id" />
+          </Key>
+          <Property Name="Book_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Auth_Id" Type="Int32" />
+          <Property Name="Book_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Author" Relationship="Self.FK__Books__Auth_Id__4BAC3F29" FromRole="Books" ToRole="Author" />
+        </EntityType>
+        <EntityType Name="E_details">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Age" Type="Int32" />
+          <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+        </EntityType>
+        <EntityType Name="tbl_author">
+          <Key>
+            <PropertyRef Name="AuthorId" />
+          </Key>
+          <Property Name="AuthorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="AuthorName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="tbl_Books" Relationship="Self.FK_auth" FromRole="tbl_author" ToRole="tbl_Books" />
+        </EntityType>
+        <EntityType Name="tbl_Books">
+          <Key>
+            <PropertyRef Name="BookId" />
+          </Key>
+          <Property Name="BookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AuthorId" Type="Int32" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="tbl_author" Relationship="Self.FK_auth" FromRole="tbl_Books" ToRole="tbl_author" />
+        </EntityType>
+        <Association Name="FK__Books__Auth_Id__4BAC3F29">
+          <End Role="Author" Type="Self.Author" Multiplicity="0..1" />
+          <End Role="Books" Type="Self.Book" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Author">
+              <PropertyRef Name="Auth_Id" />
+            </Principal>
+            <Dependent Role="Books">
+              <PropertyRef Name="Auth_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_auth">
+          <End Role="tbl_author" Type="Self.tbl_author" Multiplicity="0..1" />
+          <End Role="tbl_Books" Type="Self.tbl_Books" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="tbl_author">
+              <PropertyRef Name="AuthorId" />
+            </Principal>
+            <Dependent Role="tbl_Books">
+              <PropertyRef Name="AuthorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BooksDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Authors" EntityType="Self.Author" />
+          <EntitySet Name="Books" EntityType="Self.Book" />
+          <EntitySet Name="E_details" EntityType="Self.E_details" />
+          <EntitySet Name="tbl_author" EntityType="Self.tbl_author" />
+          <EntitySet Name="tbl_Books" EntityType="Self.tbl_Books" />
+          <AssociationSet Name="FK__Books__Auth_Id__4BAC3F29" Association="Self.FK__Books__Auth_Id__4BAC3F29">
+            <End Role="Author" EntitySet="Authors" />
+            <End Role="Books" EntitySet="Books" />
+          </AssociationSet>
+          <AssociationSet Name="FK_auth" Association="Self.FK_auth">
+            <End Role="tbl_author" EntitySet="tbl_author" />
+            <End Role="tbl_Books" EntitySet="tbl_Books" />
+          </AssociationSet>
+          <FunctionImport Name="GetBooks" ReturnType="Collection(BooksDBModel.GetBooks_Result)" />
+          <FunctionImport Name="InsertBooks">
+            <Parameter Name="AuthorId" Mode="In" Type="Int32" />
+            <Parameter Name="BookName" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_InsBook">
+            <Parameter Name="Title" Mode="In" Type="String" />
+            <Parameter Name="AuthorId" Mode="In" Type="Int32" />
+            <Parameter Name="Price" Mode="In" Type="Decimal" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="GetBooks_Result">
+          <Property Type="Int32" Name="Book_Id" Nullable="false" />
+          <Property Type="Int32" Name="Auth_Id" Nullable="true" />
+          <Property Type="String" Name="Book_Name" Nullable="true" MaxLength="20" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BooksDBModelStoreContainer" CdmEntityContainer="BooksDBEntities">
+          <EntitySetMapping Name="Authors">
+            <EntityTypeMapping TypeName="BooksDBModel.Author">
+              <MappingFragment StoreEntitySet="Author">
+                <ScalarProperty Name="Auth_Id" ColumnName="Auth_Id" />
+                <ScalarProperty Name="Auth_Name" ColumnName="Auth_Name" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Books">
+            <EntityTypeMapping TypeName="BooksDBModel.Book">
+              <MappingFragment StoreEntitySet="Books">
+                <ScalarProperty Name="Book_Id" ColumnName="Book_Id" />
+                <ScalarProperty Name="Auth_Id" ColumnName="Auth_Id" />
+                <ScalarProperty Name="Book_Name" ColumnName="Book_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="E_details">
+            <EntityTypeMapping TypeName="BooksDBModel.E_details">
+              <MappingFragment StoreEntitySet="E_details">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="Age" ColumnName="Age" />
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_author">
+            <EntityTypeMapping TypeName="BooksDBModel.tbl_author">
+              <MappingFragment StoreEntitySet="tbl_author">
+                <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
+                <ScalarProperty Name="AuthorName" ColumnName="AuthorName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="tbl_Books">
+            <EntityTypeMapping TypeName="BooksDBModel.tbl_Books">
+              <MappingFragment StoreEntitySet="tbl_Books">
+                <ScalarProperty Name="BookId" ColumnName="BookId" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="AuthorId" ColumnName="AuthorId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="GetBooks" FunctionName="BooksDBModel.Store.GetBooks">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="BooksDBModel.GetBooks_Result">
+                <ScalarProperty Name="Book_Id" ColumnName="Book_Id" />
+                <ScalarProperty Name="Auth_Id" ColumnName="Auth_Id" />
+                <ScalarProperty Name="Book_Name" ColumnName="Book_Name" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="InsertBooks" FunctionName="BooksDBModel.Store.InsertBooks" />
+          <FunctionImportMapping FunctionImportName="sp_InsBook" FunctionName="BooksDBModel.Store.sp_InsBook" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31321.278
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BooksADO", "BooksADO\BooksADO.csproj", "{F6C358D3-D7E4-4632-8BC0-D7CE58A62643}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F6C358D3-D7E4-4632-8BC0-D7CE58A62643}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6C358D3-D7E4-4632-8BC0-D7CE58A62643}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6C358D3-D7E4-4632-8BC0-D7CE58A62643}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6C358D3-D7E4-4632-8BC0-D7CE58A62643}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D4896A68-F781-40AB-99F2-0C824B9D1DFF}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,35 @@
+﻿
+@{
+
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Index</title>
+    <style>
+        body {
+            background-color: firebrick;
+        }
+
+        #div1 {
+            margin-top: 50px;
+            align-content: center;
+            margin-left: 20px;
+            height: 200px;
+            width: 30%;
+        }
+    </style>
+</head>
+<body>
+    <div class="card justify-content-center" id="div1">
+        <h5 class="card-header">Drop Down List</h5>
+        <div class="card-body">
+            <h5 class="card-title">Movies Database</h5>
+            @Html.DropDownList("MoviesList1", (IEnumerable<SelectListItem>)ViewData["ViewMovies"])
+        </div>
+</body>
+</html>

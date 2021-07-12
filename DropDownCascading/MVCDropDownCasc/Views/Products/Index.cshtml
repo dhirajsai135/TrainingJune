@@ -1,0 +1,35 @@
+﻿@model MVCDropDownCasc.Models.ProductCasc
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<body>
+
+    <div>
+        @if (ViewBag.ProductCat != null)
+        {
+            @Html.DropDownListFor(Model=>Model.CatId,ViewBag.ProductCat as SelectList,"--Select Product--",new { @class = "form-control" })
+        }
+
+    </div>
+    <div>
+        @Html.DropDownListFor(Model => Model.SubCatId,new SelectList(" "), "--Select Product--", new { @class = "form-control" })
+    </div>
+</body>
+
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#CatId").change(function () {
+            $.get("/Products/GetProducts", { ProductcategoryId : $("#CatId").val() }, function (data) {
+                $("#SubCatId").empty()
+                $.each(data, function (index, row) {
+                    $("#SubCatId").append("<option value='" + row.ProductSubcategoryID + "'>" + row.Name + "</option>")
+                })
+            })
+        })
+    })
+</script>
+

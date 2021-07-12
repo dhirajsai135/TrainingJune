@@ -1,0 +1,103 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BooksDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Author">
+    <Key>
+      <PropertyRef Name="Auth_Id" />
+    </Key>
+    <Property Name="Auth_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Auth_Name" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="Age" Type="Int32" />
+    <NavigationProperty Name="Books" Relationship="Self.FK__Books__Auth_Id__4BAC3F29" FromRole="Author" ToRole="Books" />
+  </EntityType>
+  <EntityType Name="Book">
+    <Key>
+      <PropertyRef Name="Book_Id" />
+    </Key>
+    <Property Name="Book_Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Auth_Id" Type="Int32" />
+    <Property Name="Book_Name" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Author" Relationship="Self.FK__Books__Auth_Id__4BAC3F29" FromRole="Books" ToRole="Author" />
+  </EntityType>
+  <EntityType Name="E_details">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FirstName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="LastName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Age" Type="Int32" />
+    <Property Name="Gender" Type="String" MaxLength="10" FixedLength="true" Unicode="false" />
+  </EntityType>
+  <EntityType Name="tbl_author">
+    <Key>
+      <PropertyRef Name="AuthorId" />
+    </Key>
+    <Property Name="AuthorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AuthorName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="tbl_Books" Relationship="Self.FK_auth" FromRole="tbl_author" ToRole="tbl_Books" />
+  </EntityType>
+  <EntityType Name="tbl_Books">
+    <Key>
+      <PropertyRef Name="BookId" />
+    </Key>
+    <Property Name="BookId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="AuthorId" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="tbl_author" Relationship="Self.FK_auth" FromRole="tbl_Books" ToRole="tbl_author" />
+  </EntityType>
+  <Association Name="FK__Books__Auth_Id__4BAC3F29">
+    <End Role="Author" Type="Self.Author" Multiplicity="0..1" />
+    <End Role="Books" Type="Self.Book" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Author">
+        <PropertyRef Name="Auth_Id" />
+      </Principal>
+      <Dependent Role="Books">
+        <PropertyRef Name="Auth_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_auth">
+    <End Role="tbl_author" Type="Self.tbl_author" Multiplicity="0..1" />
+    <End Role="tbl_Books" Type="Self.tbl_Books" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="tbl_author">
+        <PropertyRef Name="AuthorId" />
+      </Principal>
+      <Dependent Role="tbl_Books">
+        <PropertyRef Name="AuthorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="BooksDBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Authors" EntityType="Self.Author" />
+    <EntitySet Name="Books" EntityType="Self.Book" />
+    <EntitySet Name="E_details" EntityType="Self.E_details" />
+    <EntitySet Name="tbl_author" EntityType="Self.tbl_author" />
+    <EntitySet Name="tbl_Books" EntityType="Self.tbl_Books" />
+    <AssociationSet Name="FK__Books__Auth_Id__4BAC3F29" Association="Self.FK__Books__Auth_Id__4BAC3F29">
+      <End Role="Author" EntitySet="Authors" />
+      <End Role="Books" EntitySet="Books" />
+    </AssociationSet>
+    <AssociationSet Name="FK_auth" Association="Self.FK_auth">
+      <End Role="tbl_author" EntitySet="tbl_author" />
+      <End Role="tbl_Books" EntitySet="tbl_Books" />
+    </AssociationSet>
+    <FunctionImport Name="GetBooks" ReturnType="Collection(BooksDBModel.GetBooks_Result)" />
+    <FunctionImport Name="InsertBooks">
+      <Parameter Name="AuthorId" Mode="In" Type="Int32" />
+      <Parameter Name="BookName" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_InsBook">
+      <Parameter Name="Title" Mode="In" Type="String" />
+      <Parameter Name="AuthorId" Mode="In" Type="Int32" />
+      <Parameter Name="Price" Mode="In" Type="Decimal" />
+    </FunctionImport>
+  </EntityContainer>
+  <ComplexType Name="GetBooks_Result">
+    <Property Type="Int32" Name="Book_Id" Nullable="false" />
+    <Property Type="Int32" Name="Auth_Id" Nullable="true" />
+    <Property Type="String" Name="Book_Name" Nullable="true" MaxLength="20" />
+  </ComplexType>
+</Schema>
